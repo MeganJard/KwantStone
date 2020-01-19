@@ -71,6 +71,9 @@ class Board:
         self.handgrab = load_image('JustHandGrab.png')
         self.main_font = pygame.font.Font('data/main_font.ttf', 14)
         self.sec_font = pygame.font.Font('data/main_font.ttf', 16)
+        self.green_turn_button = load_image('turn_button_green.png')
+        self.yellow_turn_button  = load_image('turn_button_yellow.png')
+        self.grey_turn_button = load_image('turn_button_yellow.png')
 
     # заполнение руки новыми случайными картами
     def hand_update(self):
@@ -121,7 +124,7 @@ class Board:
             elif pygame.mouse.get_focused() and self.take_card is True:
                 self.screen.blit(self.handgrab, self.posi)
         elif self.game_start is False and self.loset_flag is False:
-            self.screen.blit(load_image('turn_button_grey.png'), (808, 319))
+            self.screen.blit(self.grey_turn_button, (808, 319))
             text = self.render_text('Добро пожаловать в абсолютно уникальную и неповторимую игру KwantStone',
                                     self.sec_font)
             text1 = self.render_text('Для начала игры нажми эту прекрасную стрелку   --->', self.sec_font)
@@ -447,13 +450,13 @@ while KwantStone:
                     pygame.mixer_music.pause()
                     board.music_flag = False
 
-        board.turn_button = load_image('turn_button_green.png')
+        board.turn_button = board.green_turn_button
 
         for i in board.my_bar:
             if i != 0:
 
                 if i.can_attack:
-                    board.turn_button = load_image('turn_button_yellow.png')
+                    board.turn_button = board.yellow_turn_button
                     break
 
         if event.type == pygame.MOUSEMOTION and not board.take_card:
@@ -525,5 +528,5 @@ while KwantStone:
     elif pygame.mouse.get_focused() and board.take_card is True:
         board.screen.blit(board.handgrab, board.posi)
 
-    board.clock.tick(25)
+    board.clock.tick(40)
     pygame.display.flip()
