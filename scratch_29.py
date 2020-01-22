@@ -72,7 +72,7 @@ class Board:
         self.main_font = pygame.font.Font('data/main_font.ttf', 14)
         self.sec_font = pygame.font.Font('data/main_font.ttf', 16)
         self.green_turn_button = load_image('turn_button_green.png')
-        self.yellow_turn_button  = load_image('turn_button_yellow.png')
+        self.yellow_turn_button = load_image('turn_button_yellow.png')
         self.grey_turn_button = load_image('turn_button_yellow.png')
 
     # заполнение руки новыми случайными картами
@@ -139,6 +139,7 @@ class Board:
 
             text = self.render_text('победа!!!',
                                     self.sec_font)
+            self.my_bar = [0, 0, 0, 0, 0]
             self.screen.blit(text, (480, 300))
 
     def opponent_bar_draw(self):
@@ -376,7 +377,8 @@ while KwantStone:
 
                   board.your_turn_sound]:
             i.set_volume(0)
-    if len(board.my_hand) == 0 and board.my_bar.count(0) == 5 and board.game_start and board.take_card is False:
+    if len(board.my_hand) == 0 and board.my_bar.count(
+            0) == 5 and board.game_start and board.take_card is False and board.winner is False:
         board.loset_flag = True
         board.loser_sound_flag = True
         if board.loser_sound_flag and board.music_flag:
@@ -432,6 +434,7 @@ while KwantStone:
                 board.hand_update()
                 board.game_start = True
                 board.loset_flag = False
+                board.winner = False
 
             elif board.turn_button.get_rect(x=808, y=319).collidepoint(event.pos) and board.game_start:
                 board.new_turn()
